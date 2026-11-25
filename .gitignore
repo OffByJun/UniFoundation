@@ -136,3 +136,9 @@ crashlytics-build.properties
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+UniFoundation/.idea
+UniFoundation/Library
+UniFoundation/UserSettings
+UniFoundation/Temp/ScriptUpdater
+UniFoundation/obj
+UniFoundation/Temp
