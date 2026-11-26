@@ -29,8 +29,6 @@ namespace UniFoundation.Scripts.UI.Panel
             {
                 uiComponent.Initialize();
             }
-
-            isInited = true;
         }
 
         public override void OnShow()

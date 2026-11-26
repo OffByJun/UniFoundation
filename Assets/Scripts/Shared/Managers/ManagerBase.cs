@@ -3,10 +3,11 @@ using UnityEngine;
 
 namespace UniFoundation.Scripts.Shared.Managers
 {
+    [DefaultExecutionOrder(-1)]
     public abstract class ManagerBase<T> : GameBehaviour where T : ManagerBase<T>
     {
         public static T Instance { get; private set; }
-
+        
         protected virtual void Awake()
         {
             if (Instance == null)

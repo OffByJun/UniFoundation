@@ -1,6 +1,8 @@
 ﻿using UniFoundation.Scripts.Core.EventBus;
 using UniFoundation.Scripts.Shared;
 using UniFoundation.Scripts.Shared.Managers;
+using UnityEditor;
+using UnityEngine;
 
 namespace UniFoundation.Scripts.Core.BootStrap
 {
@@ -8,9 +10,10 @@ namespace UniFoundation.Scripts.Core.BootStrap
     /// 게임의 모든 초기화는 해당 클래스에서 담당합니다.
     /// 이벤트 버스, 리퀘스트 버스, 매니저, UI, ETC.
     /// </summary>
+    [DefaultExecutionOrder(0)]
     public class BootStrap : GameBehaviour
     {
-        private void Start()
+        private void Awake()
         {
             InitializeScripts();
         }
