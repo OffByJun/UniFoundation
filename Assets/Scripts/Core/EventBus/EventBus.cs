@@ -5,6 +5,10 @@
 
     namespace UniFoundation.Scripts.Core.EventBus
     {
+        /// <summary>
+        /// 인스턴스를 새로 만들어서 작동시키세요
+        /// </summary>
+        /// <typeparam name="TDomain"></typeparam>
         public class EventBus<TDomain> : IEventBus  
             where TDomain : DomainBase
         {

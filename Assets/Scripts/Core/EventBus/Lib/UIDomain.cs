@@ -2,6 +2,9 @@
 
 namespace UniFoundation.Scripts.Core.EventBus.Lib
 {
+    // UI 도메인의 리퀘스트들
+    
+    
     public class UIDomain : DomainBase
     {
         

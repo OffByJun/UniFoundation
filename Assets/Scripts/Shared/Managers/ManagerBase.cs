@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace UniFoundation.Scripts.Shared.Managers
 {
@@ -21,6 +22,12 @@ namespace UniFoundation.Scripts.Shared.Managers
 
         public virtual void Initialize()
         {
+        }
+
+        protected virtual void OnDestroy()
+        {
+            if (Instance == this)
+                Instance = null;
         }
     }
 }

@@ -11,6 +11,7 @@ namespace UniFoundation.Scripts.Core.EventBus
         private readonly Dictionary<Type, IEventBus> Buses = new();
         
         // 굳이 의미 없는거 같아서 삭제함
+        // *주석 풀고 쓰지마
         // public void Register<TDomain>(EventBus<TDomain> bus) where TDomain : DomainBase
         // {
         //     var type = typeof(TDomain);

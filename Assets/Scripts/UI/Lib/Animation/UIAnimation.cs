@@ -53,6 +53,7 @@ namespace UniFoundation.Scripts.UI.Lib.Animation
             
             sq.Play();
         }
+        
 
         public void Cancel()
         {

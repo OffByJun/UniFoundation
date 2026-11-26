@@ -25,6 +25,7 @@ namespace UniFoundation.Scripts.Shared.Managers
                 if (panel is IPanel panelHandler)
                 {
                     panels.Add(panel.name, panelHandler);
+                    panelHandler.Initialize();
                 }
             }
 
@@ -78,8 +79,9 @@ namespace UniFoundation.Scripts.Shared.Managers
             return true;
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
             UnRegisterMethod();
         }
     }
