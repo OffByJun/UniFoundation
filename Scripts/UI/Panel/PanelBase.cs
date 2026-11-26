@@ -3,10 +3,11 @@ using System.Linq;
 using UniFoundation.Scripts.Shared;
 using UniFoundation.Scripts.UI.Component;
 using UniFoundation.Scripts.UI.Component.Interface;
+using UniFoundation.Scripts.UI.Panel.Interface;
 
 namespace UniFoundation.Scripts.UI.Panel
 {
-    public class PanelBase : GameBehaviour
+    public abstract class PanelBase : GameBehaviour, IPanel
     {
         List<IUICompnent> components = new();
         
@@ -18,24 +19,12 @@ namespace UniFoundation.Scripts.UI.Panel
             
             Initialize();
         }
-        
-        public virtual void OnShow()
-        {
-            foreach (var uiComponent in components)
-            {
-                uiComponent.OnShow();
-            }
-        }
 
-        public virtual void OnHide()
-        {
-            foreach (var uiComponent in components)
-            {
-                uiComponent.OnHide();
-            }
-        }
+        public abstract void Open();
 
-        private void Initialize()
+        public abstract void Close();
+
+        protected virtual void Initialize()
         {
             foreach (var uiComponent in components)
             {
