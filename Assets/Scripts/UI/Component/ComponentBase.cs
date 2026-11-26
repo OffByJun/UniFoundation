@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using UniFoundation.Scripts.Shared;
 using UniFoundation.Scripts.UI.Component.Interface;
+using UniFoundation.Scripts.UI.Component.Type;
 using UnityEngine;
 
 namespace UniFoundation.Scripts.UI.Component
@@ -9,18 +10,26 @@ namespace UniFoundation.Scripts.UI.Component
     {
         private CancellationTokenSource animCTS;
         protected RectTransform rectTrs;
-        
-        public virtual void Init()
+        protected UIState UIState;
+        protected bool isInited;
+
+        public UIState GetUIState => UIState;
+        public bool EqualState(UIState state) => UIState == state;
+
+        public virtual void Initialize()
         {
             rectTrs = GetComponent<RectTransform>();
+            isInited = true;
         }
 
         public virtual void OnShow()
         {
+            // 추후 tween하고 합쳐질듯
         }
 
         public virtual void OnHide()
         {
+            // this one too.
             CancelAnimation();
         }
 
@@ -31,7 +40,6 @@ namespace UniFoundation.Scripts.UI.Component
 
         public virtual void Animate()
         {
-            
         }
 
         protected CancellationToken CreateAnimationToken()
@@ -46,7 +54,7 @@ namespace UniFoundation.Scripts.UI.Component
         {
             animCTS?.Cancel();
             animCTS?.Dispose();
-            
+
             animCTS = null;
         }
     }

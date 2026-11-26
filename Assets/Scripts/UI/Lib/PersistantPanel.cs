@@ -1,6 +1,8 @@
-﻿namespace UniFoundation.Scripts.UI.Lib
+﻿using UniFoundation.Scripts.UI.Panel;
+
+namespace UniFoundation.Scripts.UI.Lib
 {
-    public class PersistantPanel
+    public class PersistantPanel : PanelBase
     {
         
     }

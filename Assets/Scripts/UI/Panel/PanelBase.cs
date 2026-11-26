@@ -4,19 +4,22 @@ using UniFoundation.Scripts.Core.EventBus;
 using UniFoundation.Scripts.Shared;
 using UniFoundation.Scripts.UI.Component;
 using UniFoundation.Scripts.UI.Component.Interface;
+using UniFoundation.Scripts.UI.Component.Type;
 using UniFoundation.Scripts.UI.Panel.Interface;
 
 namespace UniFoundation.Scripts.UI.Panel
 {
-    public abstract class PanelBase : GameBehaviour, IPanel
+    /// <summary>
+    /// 모든 Panel은 해당 클래스를 상속해야합니다
+    /// </summary>
+    public abstract class PanelBase : ComponentBase
     {
         List<IUICompnent> components = new();
-        private bool hasOpened = false;
-        private bool hasInited = false;
         
-        public virtual void Initialize()
+        public override void Initialize()
         {
-            if (hasInited) return;
+            if (isInited) return;
+            base.Initialize();
             
             components = gameObject.GetComponentsInChildren<ComponentBase>(true)
                 .OfType<IUICompnent>()
@@ -24,16 +27,18 @@ namespace UniFoundation.Scripts.UI.Panel
             
             foreach (var uiComponent in components)
             {
-                uiComponent.Init();
+                uiComponent.Initialize();
             }
 
-            hasInited = true;
+            isInited = true;
         }
 
-        public virtual void Open()
+        public override void OnShow()
         {
-            if (hasOpened && hasInited) return;
-            hasOpened = true;
+            if ((EqualState(UIState.Visible) 
+                 || EqualState(UIState.Entering)) 
+                && !isInited) return;
+            base.OnShow();
 
             foreach (var uiComponent in components)
             {
@@ -41,10 +46,12 @@ namespace UniFoundation.Scripts.UI.Panel
             }
         }
 
-        public virtual void Close()
+        public override void OnHide()
         {
-            if (!hasOpened && hasInited) return;
-            hasOpened = false;
+            if ((EqualState(UIState.Hidden)
+                || EqualState(UIState.Exiting))
+                && !isInited) return;
+            base.OnHide();
 
             foreach (var uiComponent in components)
             {
@@ -52,10 +59,11 @@ namespace UniFoundation.Scripts.UI.Panel
             }
         }
 
-        public virtual void Release()
+        public override void Release()
         {
-            if (!hasInited) return;
-            hasInited = false;
+            if (!isInited) return;
+            base.Release();
+            isInited = false;
             
             foreach (var uiComponent in components)
             {

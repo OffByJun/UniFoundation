@@ -2,7 +2,7 @@
 {
     public interface IUICompnent
     {
-        public void Init();
+        public void Initialize();
         public void OnShow();
         public void OnHide();
         public void Release();
