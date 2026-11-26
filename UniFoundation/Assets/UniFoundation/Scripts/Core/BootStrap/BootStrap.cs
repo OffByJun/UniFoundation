@@ -1,4 +1,6 @@
-﻿using UniFoundation.Scripts.Shared;
+﻿using UniFoundation.Scripts.Core.EventBus;
+using UniFoundation.Scripts.Shared;
+using UniFoundation.Scripts.Shared.Managers;
 
 namespace UniFoundation.Scripts.Core.BootStrap
 {
@@ -8,6 +10,20 @@ namespace UniFoundation.Scripts.Core.BootStrap
     /// </summary>
     public class BootStrap : GameBehaviour
     {
-        
+        private void Awake()
+        {
+            InitializeScripts();
+        }
+
+        private void InitializeScripts()
+        {
+            EventHub.Instance.Initialize();
+            
+            GameManager.Instance.Initialize();
+            SceneManager.Instance.Initialize();
+            CamManager.Instance.Initialize();
+            SaveManager.Instance.Initialize();
+            UIManager.Instance.Initialize();
+        }
     }
 }
