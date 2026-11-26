@@ -10,7 +10,7 @@ namespace UniFoundation.Scripts.Core.BootStrap
     /// </summary>
     public class BootStrap : GameBehaviour
     {
-        private void Awake()
+        private void Start()
         {
             InitializeScripts();
         }

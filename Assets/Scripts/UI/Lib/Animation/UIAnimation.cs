@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System.Threading;
+using DG.Tweening;
 using UniFoundation.Scripts.Shared;
 
 namespace UniFoundation.Scripts.UI.Lib.Animation
@@ -9,6 +10,7 @@ namespace UniFoundation.Scripts.UI.Lib.Animation
     public abstract class UIAnimation<T> where T : UIAnimation<T>
     {
         protected readonly Sequence sq;
+        private bool hasPlayed;
 
         protected UIAnimation()
         {
@@ -16,24 +18,58 @@ namespace UniFoundation.Scripts.UI.Lib.Animation
             sq.Pause();
         }
 
-        public UIAnimation<T> Append(Tween tween)
+        public T Append(Tween tween)
         {
             sq.Append(tween);
             return (T)this;
         }
 
-        public UIAnimation<T> Join(Tween tween)
+        public T Join(Tween tween)
         {
             sq.Join(tween);
             return (T)this;
         }
 
-        public UIAnimation<T> Delay(float delay)
+        public T Delay(float delay)
         {
             sq.AppendInterval(delay);
             return (T)this;
         }
+
+        public void Play(CancellationToken cts)
+        {
+            if (hasPlayed || !sq.IsActive()) return;
+            
+            if (cts.IsCancellationRequested)
+            {
+                Cancel();
+                return;
+            }
+
+            hasPlayed = true;
+
+            var regist = cts.Register(() => Cancel());
+            sq.OnKill(() => regist.Dispose());
+            
+            sq.Play();
+        }
+
+        public void Cancel()
+        {
+            if (sq.IsActive())
+                sq.Kill(false);
+        }
         
-        
+        public T OnStart(TweenCallback callback)
+        {
+            sq.OnStart(callback);
+            return (T)this;
+        }
+
+        public T OnComplete(TweenCallback callback)
+        {
+            sq.onComplete = callback;
+            return (T)this;
+        }
     }
 }
