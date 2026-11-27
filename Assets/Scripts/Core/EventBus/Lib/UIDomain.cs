@@ -1,6 +1,4 @@
-﻿using UniFoundation.Scripts.UI.Panel;
-
-namespace UniFoundation.Scripts.Core.EventBus.Lib
+﻿namespace UniFoundation.Scripts.Core.EventBus.Lib
 {
     // UI 도메인의 리퀘스트들
     
