@@ -25,7 +25,7 @@
                 events[type] = Delegate.Combine(exist, callback);
             }
 
-            public void UnSubScribe<T>(Action<T> callback) where T : TDomain
+            public void UnSubscribe<T>(Action<T> callback) where T : TDomain
             {
                 var type = typeof(T);
 
