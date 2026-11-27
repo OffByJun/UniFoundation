@@ -99,7 +99,9 @@ namespace UniFoundation.Scripts.UI.Component
 
         public AnimationBase Animation(CancellationToken token, AnimationBase animClip)
         {
-            if (!isInited) return null;
+            if (!isInited || animClip == null || token.IsCancellationRequested) return null;
+
+            token.Register(animClip.Pause);
             
             animClip.Start();
             return animClip;
