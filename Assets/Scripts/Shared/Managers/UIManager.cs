@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using NUnit.Framework.Constraints;
+using UI.Lib.Panel;
 using UniFoundation.Scripts.Core;
 using UniFoundation.Scripts.Core.EventBus;
 using UniFoundation.Scripts.Core.EventBus.Lib;
-using UniFoundation.Scripts.UI.Component.Interface;
-using UniFoundation.Scripts.UI.Panel;
-using UniFoundation.Scripts.UI.Panel.Interface;
 
 namespace UniFoundation.Scripts.Shared.Managers
 {
     public class UIManager : ManagerBase<UIManager>
     {
-        private Dictionary<string, IPanel> panels = new();
+        private Dictionary<string, PanelBase> panels = new();
         private EventBus<UIDomain> uiBus;
 
         public override void Initialize()
@@ -22,11 +20,8 @@ namespace UniFoundation.Scripts.Shared.Managers
 
             foreach (var panel in temp)
             {
-                if (panel is IPanel panelHandler)
-                {
-                    panels.Add(panel.name, panelHandler);
-                    panelHandler.Initialize();
-                }
+                    panels.Add(panel.name, panel);
+                    panel.Initialize();
             }
 
             uiBus = EventHub.Instance.Get<UIDomain>();

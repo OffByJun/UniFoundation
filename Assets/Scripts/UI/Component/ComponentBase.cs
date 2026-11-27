@@ -15,7 +15,6 @@ namespace UniFoundation.Scripts.UI.Component
     public class ComponentBase : GameBehaviour, IUIComponent
     {
         private CancellationTokenSource animCTS;
-        protected RectTransform rectTrs;
         protected UIState UIState;
         protected bool isInited;
 
@@ -30,8 +29,12 @@ namespace UniFoundation.Scripts.UI.Component
         
         public void Initialize()
         {
-            rectTrs = GetComponent<RectTransform>();
-            isInited = true;
+            if (isInited) return;
+            
+            Init(() =>
+            {
+                isInited = true;
+            });
         }
 
         public void OnShow()
@@ -46,13 +49,18 @@ namespace UniFoundation.Scripts.UI.Component
             int remain = showAnims.Count;
             
             foreach (var anim in showAnims)
+            {
+                if (remain <= 0)
+                    UIState = UIState.Visible;
+
                 Animation(token, anim)?.IsComplete(() =>
                 {
-                    remain--;
-
-                    if (remain <= 0)
+                    if (token.IsCancellationRequested) return;
+                    
+                    if (--remain <= 0) 
                         UIState = UIState.Visible;
                 });
+            }
         }
 
         public void OnHide()
@@ -67,13 +75,18 @@ namespace UniFoundation.Scripts.UI.Component
             int remain = hideAnims.Count;
             
             foreach (var anim in hideAnims)
+            {
+                if (remain <= 0)
+                    UIState = UIState.Hidden;
+
                 Animation(token, anim)?.IsComplete(() =>
                 {
-                    remain--;
-
-                    if (remain <= 0)
+                    if (token.IsCancellationRequested) return;
+                    
+                    if (--remain <= 0) 
                         UIState = UIState.Hidden;
                 });
+            }
         }
 
         public void Clear()
@@ -111,6 +124,10 @@ namespace UniFoundation.Scripts.UI.Component
         #endregion
         
         #region APIs
+
+        public virtual void Init(Action onComplete = null)
+        {
+        }
 
         /// <summary>
         /// 해당 메서드를 Override하여 Open될때 동작을 정의합니다

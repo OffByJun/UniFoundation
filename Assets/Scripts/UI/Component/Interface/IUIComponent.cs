@@ -7,6 +7,8 @@ namespace UniFoundation.Scripts.UI.Component.Interface
 {
     public interface IUIComponent
     {
+        public void Init(Action onComplete = null);
+        
         public void Open(Action onComplete = null);
         
         public void Close(Action onComplete = null);
