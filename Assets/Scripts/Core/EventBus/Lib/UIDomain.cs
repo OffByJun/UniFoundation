@@ -1,4 +1,4 @@
-﻿using UniFoundation.Scripts.UI.Panel.Type;
+﻿using UniFoundation.Scripts.UI.Panel;
 
 namespace UniFoundation.Scripts.Core.EventBus.Lib
 {
