@@ -33,8 +33,6 @@ namespace UI.Lib.Panel
                 component.Open(onComplete);
             }
             Show();
-            
-            onComplete?.Invoke();
         }
 
         public sealed override void Close(Action onComplete = null)
@@ -44,8 +42,6 @@ namespace UI.Lib.Panel
                 component.Close(onComplete);    
             }
             Hide();
-            
-            onComplete?.Invoke();
         }
 
         #region API
