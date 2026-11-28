@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace UniFoundation.Scripts.Shared.Managers
 {
@@ -7,30 +8,30 @@ namespace UniFoundation.Scripts.Shared.Managers
     public abstract class ManagerBase<T> : GameBehaviour where T : ManagerBase<T>
     {
         public static T Instance { get; private set; }
-        
-        protected virtual void Awake()
+
+        public bool IsInitialized() => Instance != null;
+
+        public void Initialize()
         {
-            if (Instance == null)
+            if (Instance != null)
             {
-                Instance = (T)(object)this;
-            }
-            else
-            {
-                Debug.LogWarning($"{typeof(T).Name} 인스턴스가 이미 존재합니다. 새 인스턴스를 삭제합니다.");
-                Destroy(gameObject);
+                Debug.LogWarning($"{typeof(T).Name} 인스턴스가 이미 존재합니다.");
+                return;
             }
             
-            DontDestroyOnLoad(gameObject);
-        }
-
-        public virtual void Initialize()
-        {
+            Instance = (T)this;
+            
+            OnInitialized();
         }
 
         protected virtual void OnDestroy()
         {
             if (Instance == this)
                 Instance = null;
+        }
+
+        protected virtual void OnInitialized()
+        {
         }
     }
 }

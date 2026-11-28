@@ -5,6 +5,7 @@ using UI.Lib.Panel;
 using UniFoundation.Scripts.Core;
 using UniFoundation.Scripts.Core.EventBus;
 using UniFoundation.Scripts.Core.EventBus.Lib;
+using UnityEngine;
 
 namespace UniFoundation.Scripts.Shared.Managers
 {
@@ -13,9 +14,8 @@ namespace UniFoundation.Scripts.Shared.Managers
         private Dictionary<string, PanelBase> panels = new();
         private EventBus<UIDomain> uiBus;
 
-        public override void Initialize()
+        protected override void OnInitialized()
         {
-            base.Initialize();
             var temp = GetComponentsInChildren<PanelBase>(true);
 
             foreach (var panel in temp)

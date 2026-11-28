@@ -13,20 +13,19 @@ namespace UniFoundation.Scripts.Core.BootStrap
     [DefaultExecutionOrder(0)]
     public class BootStrap : GameBehaviour
     {
-        private void Awake()
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void InitializeScripts()
         {
-            InitializeScripts();
-        }
-
-        private void InitializeScripts()
-        {
-            EventHub.Instance.Initialize();
+            var obj = new GameObject("[ManagerObject - Do Not Destroy]");
+            DontDestroyOnLoad(obj);
             
-            GameManager.Instance.Initialize();
-            SceneManager.Instance.Initialize();
-            CamManager.Instance.Initialize();
-            SaveManager.Instance.Initialize();
-            UIManager.Instance.Initialize();
+            obj.AddComponent<EventHub>().Initialize();
+
+            obj.AddComponent<GameManager>().Initialize();
+            obj.AddComponent<SceneManager>().Initialize();
+            obj.AddComponent<CamManager>().Initialize();
+            obj.AddComponent<SaveManager>().Initialize();
+            obj.AddComponent<UIManager>().Initialize();
         }
     }
 }
