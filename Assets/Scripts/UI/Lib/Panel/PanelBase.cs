@@ -22,6 +22,8 @@ namespace UI.Lib.Panel
             }
             
             Register();
+            
+            onComplete?.Invoke();
         }
 
         public sealed override void Open(Action onComplete = null)

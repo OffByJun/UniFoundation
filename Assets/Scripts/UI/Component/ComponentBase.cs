@@ -50,9 +50,6 @@ namespace UniFoundation.Scripts.UI.Component
             
             foreach (var anim in showAnims)
             {
-                if (remain <= 0)
-                    UIState = UIState.Visible;
-
                 Animation(token, anim)?.IsComplete(() =>
                 {
                     if (token.IsCancellationRequested) return;
@@ -61,6 +58,9 @@ namespace UniFoundation.Scripts.UI.Component
                         UIState = UIState.Visible;
                 });
             }
+            
+            if (remain <= 0)
+                UIState = UIState.Visible;
         }
 
         public void OnHide()
@@ -76,9 +76,6 @@ namespace UniFoundation.Scripts.UI.Component
             
             foreach (var anim in hideAnims)
             {
-                if (remain <= 0)
-                    UIState = UIState.Hidden;
-
                 Animation(token, anim)?.IsComplete(() =>
                 {
                     if (token.IsCancellationRequested) return;
@@ -87,6 +84,9 @@ namespace UniFoundation.Scripts.UI.Component
                         UIState = UIState.Hidden;
                 });
             }
+            
+            if (remain <= 0)
+                UIState = UIState.Hidden;
         }
 
         public void Clear()

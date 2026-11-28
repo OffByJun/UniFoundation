@@ -19,6 +19,8 @@ namespace UniFoundation.Scripts.Shared.Managers
                 Debug.LogWarning($"{typeof(T).Name} 인스턴스가 이미 존재합니다. 새 인스턴스를 삭제합니다.");
                 Destroy(gameObject);
             }
+            
+            DontDestroyOnLoad(gameObject);
         }
 
         public virtual void Initialize()

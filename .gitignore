@@ -142,3 +142,5 @@ UniFoundation/UserSettings
 UniFoundation/Temp/ScriptUpdater
 UniFoundation/obj
 UniFoundation/Temp
+.idea
+Assets/Docs/*.meta
