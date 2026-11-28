@@ -51,7 +51,7 @@ namespace UniFoundation.Scripts.Shared.Managers
         {
             if (!panels.TryGetValue(panelName, out var panel)) return false;
             
-            panel.Open();
+            panel.OnShow();
             return true;
         }
 
@@ -59,7 +59,7 @@ namespace UniFoundation.Scripts.Shared.Managers
         {
             if (!panels.TryGetValue(panelName, out var panel)) return false;
             
-            panel.Close();
+            panel.OnHide();
             return true;
         }
 
@@ -68,7 +68,7 @@ namespace UniFoundation.Scripts.Shared.Managers
             if (panels.Count == 0) return false;
             foreach (var panel in panels)
             {
-                panel.Value.Close();
+                panel.Value.OnHide();
             }
 
             return true;
